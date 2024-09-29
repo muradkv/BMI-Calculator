@@ -8,13 +8,24 @@
 import UIKit
 
 class CalculateViewController: UIViewController {
+    
+    //MARK: - Properties
+    let calculateView = CalculateView()
+    
+    //MARK: - Life cycle
+    override func loadView() {
+        view = calculateView
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        view.backgroundColor = .systemBackground
+        setupUI()
     }
 
+    private func setupUI() {
+        
+    }
 
 }
 
