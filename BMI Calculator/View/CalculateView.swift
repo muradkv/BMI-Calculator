@@ -10,12 +10,14 @@ import UIKit
 class CalculateView: UIView {
     
     //MARK: - Properties
-    private let backgroundImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "calculate_background")
-        return imageView
-    }()
+//    private let backgroundImageView: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.translatesAutoresizingMaskIntoConstraints = false
+//        imageView.image = UIImage(named: "calculate_background")
+//        return imageView
+//    }()
+    
+    private let backgroundImageView = BackgroundImageView(imageName: "calculate_background")
     
     private let verticalMainStackView: UIStackView = {
         let stackView = UIStackView()
