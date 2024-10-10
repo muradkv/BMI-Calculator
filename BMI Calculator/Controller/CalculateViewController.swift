@@ -11,6 +11,8 @@ class CalculateViewController: UIViewController {
     
     //MARK: - Properties
     let calculateView = CalculateView()
+    var height: Float = 0
+    var weight: Float = 0
     
     //MARK: - Life cycle
     override func loadView() {
@@ -19,13 +21,27 @@ class CalculateViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        setupUI()
+        calculateView.delegate = self
     }
-
-    private func setupUI() {
-        
-    }
-
 }
 
+//MARK: - Delegate
+extension CalculateViewController: CalculateViewDelegate {
+    func initialValueSliders(height: Float, weight: Float) {
+        self.height = height
+        self.weight = weight
+    }
+    
+    func heightSliderValueChanged(_ value: Float) {
+        height = value
+    }
+    
+    func weightSliderValueChanged(_ value: Float) {
+        weight = value
+    }
+    
+    func calculateButtonTapped() {
+        let bmi = weight / (height * 2)
+        print(bmi)
+    }
+}

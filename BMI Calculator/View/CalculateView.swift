@@ -7,16 +7,16 @@
 
 import UIKit
 
+protocol CalculateViewDelegate: AnyObject {
+    func heightSliderValueChanged(_ value: Float)
+    func weightSliderValueChanged(_ value: Float)
+    func initialValueSliders(height: Float, weight: Float)
+    func calculateButtonTapped()
+}
+
 class CalculateView: UIView {
     
     //MARK: - Properties
-//    private let backgroundImageView: UIImageView = {
-//        let imageView = UIImageView()
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.image = UIImage(named: "calculate_background")
-//        return imageView
-//    }()
-    
     private let backgroundImageView = BackgroundImageView(imageName: "calculate_background")
     
     private let verticalMainStackView: UIStackView = {
@@ -67,11 +67,14 @@ class CalculateView: UIView {
         button.backgroundColor = UIColor(red: 98 / 255, green: 96 / 255, blue: 157 / 255, alpha: 1)
         return button
     }()
-
+    
+    weak var delegate: CalculateViewDelegate?
+    
     //MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
+        setupTargets()
     }
     
     required init?(coder: NSCoder) {
@@ -114,6 +117,31 @@ class CalculateView: UIView {
             
             calculateButton.heightAnchor.constraint(equalToConstant: 51)
         ])
+    }
+    
+    //MARK: - Methods
+    
+    private func setupTargets() {
+        heightSlider.addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
+        weightSlider.addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
+        calculateButton.addTarget(self, action: #selector(calculateButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func sliderValueChanged(_ sender: UISlider) {
+        let value = sender.value
+        
+        if sender == heightSlider {
+            delegate?.heightSliderValueChanged(sender.value)
+            heightNumberLabel.text = String(format: "%.2fm", value)
+        } else {
+            delegate?.weightSliderValueChanged(sender.value)
+            weightNumberLabel.text = String(format: "%.fkg", value)
+        }
+    }
+    
+    @objc private func calculateButtonTapped() {
+        delegate?.initialValueSliders(height: heightSlider.value, weight: weightSlider.value)
+        delegate?.calculateButtonTapped()
     }
     
 }
