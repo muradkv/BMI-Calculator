@@ -11,6 +11,7 @@ class ResultViewController: UIViewController {
     
     //MARK: - Properties
     let resultView = ResultView()
+    var bmiValue = ""
 
     //MARK: - Life cycle
     override func loadView() {
@@ -19,7 +20,17 @@ class ResultViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        resultView.delegate = self
+        resultView.updateUI()
     }
+}
 
+extension ResultViewController: ResultViewDelegate {
+    func recalculateButtonTapped() {
+        dismiss(animated: true)
+    }
+    
+    func provideResultValue() -> String {
+        return bmiValue
+    }
 }

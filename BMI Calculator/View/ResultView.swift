@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol ResultViewDelegate: AnyObject {
+    func provideResultValue() -> String
+    func recalculateButtonTapped()
+}
+
 class ResultView: UIView {
     
     //MARK: - Properties
@@ -53,11 +58,15 @@ class ResultView: UIView {
         button.backgroundColor = .white
         return button
     }()
+    
+    weak var delegate: ResultViewDelegate?
 
     //MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
+        updateUI()
+        setupButton()
     }
     
     required init?(coder: NSCoder) {
@@ -90,4 +99,18 @@ class ResultView: UIView {
         ])
     }
     
+    private func setupButton() {
+        recalculateButton.addTarget(self, action: #selector(recalculateButtonTapped), for: .touchUpInside)
+    }
+    
+    func updateUI() {
+        if let bmiValue = delegate?.provideResultValue() {
+            resultNumberLabel.text = bmiValue
+            print(bmiValue)
+        }
+    }
+    
+    @objc private func recalculateButtonTapped() {
+        delegate?.recalculateButtonTapped()
+    }
 }

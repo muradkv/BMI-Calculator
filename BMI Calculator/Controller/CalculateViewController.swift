@@ -42,6 +42,9 @@ extension CalculateViewController: CalculateViewDelegate {
     
     func calculateButtonTapped() {
         let bmi = weight / (height * 2)
-        print(bmi)
+        
+        let destinationVC = ResultViewController()
+        destinationVC.bmiValue = String(format: "%.1f", bmi)
+        present(destinationVC, animated: true)
     }
 }
