@@ -12,6 +12,8 @@ class ResultViewController: UIViewController {
     //MARK: - Properties
     let resultView = ResultView()
     var bmiValue = ""
+    var advice = ""
+    var color: UIColor = .brown
 
     //MARK: - Life cycle
     override func loadView() {
@@ -26,6 +28,14 @@ class ResultViewController: UIViewController {
 }
 
 extension ResultViewController: ResultViewDelegate {
+    func provideResultColor() -> UIColor {
+        color
+    }
+    
+    func provideResultAdvice() -> String {
+        advice
+    }
+    
     func recalculateButtonTapped() {
         dismiss(animated: true)
     }

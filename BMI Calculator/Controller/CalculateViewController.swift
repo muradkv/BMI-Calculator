@@ -13,6 +13,7 @@ class CalculateViewController: UIViewController {
     let calculateView = CalculateView()
     var height: Float = 0
     var weight: Float = 0
+    var calculatorBrain = CalculatorBrain()
     
     //MARK: - Life cycle
     override func loadView() {
@@ -41,10 +42,12 @@ extension CalculateViewController: CalculateViewDelegate {
     }
     
     func calculateButtonTapped() {
-        let bmi = weight / (height * 2)
+        calculatorBrain.calculateBMI(height: height, weight: weight)
         
         let destinationVC = ResultViewController()
-        destinationVC.bmiValue = String(format: "%.1f", bmi)
+        destinationVC.bmiValue = calculatorBrain.getBMIValue()
+        destinationVC.advice = calculatorBrain.getAdvice()
+        destinationVC.color = calculatorBrain.getColor()
         present(destinationVC, animated: true)
     }
 }

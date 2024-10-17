@@ -10,6 +10,8 @@ import UIKit
 protocol ResultViewDelegate: AnyObject {
     func provideResultValue() -> String
     func recalculateButtonTapped()
+    func provideResultColor() -> UIColor
+    func provideResultAdvice() -> String
 }
 
 class ResultView: UIView {
@@ -104,10 +106,14 @@ class ResultView: UIView {
     }
     
     func updateUI() {
-        if let bmiValue = delegate?.provideResultValue() {
-            resultNumberLabel.text = bmiValue
-            print(bmiValue)
-        }
+        guard let advice = delegate?.provideResultAdvice(),
+              let color = delegate?.provideResultColor(),
+              let bmiValue = delegate?.provideResultValue()
+        else { return }
+        
+        resultNumberLabel.text = bmiValue
+        resultAdviceLabel.text = advice
+        backgroundImageView.backgroundColor = color
     }
     
     @objc private func recalculateButtonTapped() {
