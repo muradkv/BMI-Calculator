@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ResultViewDelegate: AnyObject {
-    func provideResultValue() -> String
+    func provideResultValue() -> Float
     func recalculateButtonTapped()
     func provideResultColor() -> UIColor
     func provideResultAdvice() -> String
@@ -111,7 +111,8 @@ class ResultView: UIView {
               let bmiValue = delegate?.provideResultValue()
         else { return }
         
-        resultNumberLabel.text = bmiValue
+        let bmiTo1DecimalePlace = String(format: "%.1f", bmiValue)
+        resultNumberLabel.text = bmiTo1DecimalePlace
         resultAdviceLabel.text = advice
         backgroundImageView.backgroundColor = color
     }

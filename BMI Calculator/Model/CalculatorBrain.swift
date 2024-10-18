@@ -22,10 +22,14 @@ struct CalculatorBrain {
         }
     }
     
-    func getBMIValue() -> String {
-        guard let bmi else { return "0.0" }
-        let bmiTo1DecimalePlace = String(format: "%.1f", bmi.value)
-        return bmiTo1DecimalePlace
+//    func getBMIValue() -> String {
+//        guard let bmi else { return "0.0" }
+//        let bmiTo1DecimalePlace = String(format: "%.1f", bmi.value)
+//        return bmiTo1DecimalePlace
+//    }
+    
+    func getBMIValue() -> Float {
+        return bmi?.value ?? 0.0
     }
     
     func getAdvice() -> String {

@@ -10,11 +10,19 @@ import UIKit
 class ResultViewController: UIViewController {
     
     //MARK: - Properties
-    let resultView = ResultView()
-    var bmiValue = ""
-    var advice = ""
-    var color: UIColor = .brown
+    private let resultView = ResultView()
+    private let bmiResult: BMI
 
+    //MARK: - Initializer
+    init(bmiResult: BMI) {
+        self.bmiResult = bmiResult
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     //MARK: - Life cycle
     override func loadView() {
         view = resultView
@@ -29,18 +37,18 @@ class ResultViewController: UIViewController {
 
 extension ResultViewController: ResultViewDelegate {
     func provideResultColor() -> UIColor {
-        color
+        bmiResult.color
     }
     
     func provideResultAdvice() -> String {
-        advice
+        bmiResult.advice
     }
     
     func recalculateButtonTapped() {
         dismiss(animated: true)
     }
     
-    func provideResultValue() -> String {
-        return bmiValue
+    func provideResultValue() -> Float {
+        return bmiResult.value
     }
 }

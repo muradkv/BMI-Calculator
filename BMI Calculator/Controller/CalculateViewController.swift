@@ -44,10 +44,15 @@ extension CalculateViewController: CalculateViewDelegate {
     func calculateButtonTapped() {
         calculatorBrain.calculateBMI(height: height, weight: weight)
         
-        let destinationVC = ResultViewController()
-        destinationVC.bmiValue = calculatorBrain.getBMIValue()
-        destinationVC.advice = calculatorBrain.getAdvice()
-        destinationVC.color = calculatorBrain.getColor()
+        let bmi = BMI(
+            value: calculatorBrain.getBMIValue(),
+            advice: calculatorBrain.getAdvice(),
+            color: calculatorBrain.getColor())
+        
+        let destinationVC = ResultViewController(bmiResult: bmi)
+//        destinationVC.bmiValue = calculatorBrain.getBMIValue()
+//        destinationVC.advice = calculatorBrain.getAdvice()
+//        destinationVC.color = calculatorBrain.getColor()
         present(destinationVC, animated: true)
     }
 }
